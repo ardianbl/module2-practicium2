@@ -1,4 +1,6 @@
 package Command;
 
-public class UndoCommand {
+public class UndoCommand implements Command {
+    @Override
+    public void execute() {}
 }

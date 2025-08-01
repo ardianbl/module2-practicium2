@@ -1,4 +1,6 @@
 package Command;
 
-public class ListCommand {
+public class ListCommand implements Command {
+    @Override
+    public void execute() {}
 }
