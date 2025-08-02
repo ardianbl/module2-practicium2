@@ -12,6 +12,11 @@ import java.util.Stack;
 public class Invoker {
     private Command[] cmdToExecute;
 
-    public void setCommandsForExecution(Command[] cmdToExecute) {}
-    public void executeCommand(Stack<Command> history) {}
+    public void setCommandsForExecution(Command[] cmdToExecute) {
+        //This should call the object created in command;
+    }
+    public void executeCommand(Stack<Command> history) {
+        //Execute is link to the execute() in each of the subclass;
+        // Update the stackHistory;
+    }
 }
