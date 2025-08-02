@@ -12,11 +12,17 @@ import java.util.Stack;
 public class Invoker {
     private Command[] cmdToExecute;
 
-    public void setCommandsForExecution(Command[] cmdToExecute) {
-        //This should call the object created in command;
+    public void setCommandsForExecution(Command[] commandToAdd) {
+        this.cmdToExecute = commandToAdd;
     }
+
     public void executeCommand(Stack<Command> history) {
         //Execute is link to the execute() in each of the subclass;
         // Update the stackHistory;
+        if(!history.isEmpty())
+        {
+            Command lastCommand = history.peek();
+            lastCommand.execute();
+        }
     }
 }
