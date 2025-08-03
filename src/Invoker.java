@@ -19,10 +19,16 @@ public class Invoker {
     public void executeCommand(Stack<Command> history) {
         //Execute is link to the execute() in each of the subclass;
         // Update the stackHistory;
-        if(!history.isEmpty())
+        for(Command cmd : cmdToExecute)
         {
-            Command lastCommand = history.peek();
-            lastCommand.execute();
+            cmd.execute();
+            history.push(cmd);
         }
+
+//        if(!history.isEmpty())
+//        {
+//            Command lastCommand = history.peek();
+//            lastCommand.execute();
+//        }
     }
 }

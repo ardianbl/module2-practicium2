@@ -1,4 +1,5 @@
 package Command;
+import Data.Receiver;
 
 
 /**
@@ -9,11 +10,11 @@ package Command;
  */
 
 public class AddCommand implements Command {
-
+    //Change input to params.
     private final String first_name;
     private final String last_name;
     private final String emailAddress;
-    private DataStore data;
+    private Receiver data;
 
 
     public String getFirst_name() {
@@ -21,7 +22,7 @@ public class AddCommand implements Command {
     }
 
     //Create payload object.
-    public AddCommand(DataStore data, String first_name, String last_name, String emailAddress)
+    public AddCommand(Receiver data, String first_name, String last_name, String emailAddress)
     {
         this.data = data;
         this.first_name = first_name;
@@ -31,7 +32,7 @@ public class AddCommand implements Command {
 
     @Override
     public void execute() {
-        data.addEntry();
+        data.addEntry(this.first_name, this.last_name, this.emailAddress);
     }
 
 }
