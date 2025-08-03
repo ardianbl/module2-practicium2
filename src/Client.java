@@ -2,7 +2,7 @@ import Command.AddCommand;
 import Command.UpdateCommand;
 import Command.Command;
 import Data.Receiver;
-import exceptions.validationException;
+import Exceptions.validationException;
 
 import java.util.Scanner;
 import java.util.Stack;
