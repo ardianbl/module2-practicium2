@@ -95,8 +95,6 @@ public class Client {
         boolean isExist = !data.getData().isEmpty();
         boolean isEmail = false;
 
-
-
         //This will send to the invoker
         //Receiver will then be triggered to execute.
         do {
@@ -112,7 +110,6 @@ public class Client {
             if (inputArray.length < 2 || inputArray.length > 5 ) {
                 throw new validationException("You have enter the wrong amount of input");
             }
-
 
             Invoker control = new Invoker();
 

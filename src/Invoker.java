@@ -22,6 +22,7 @@ public class Invoker {
         for(Command cmd : cmdToExecute)
         {
             cmd.execute();
+            // !!!!!!use instance of to update history only for add,delete and update.
             history.push(cmd);
         }
 
