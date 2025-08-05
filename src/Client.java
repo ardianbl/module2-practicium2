@@ -1,9 +1,13 @@
 
 import Command.AddCommand;
 import Command.Command;
+<<<<<<< Updated upstream
 import Command.DataStore;
+=======
+import Data.Receiver;
+import Exceptions.customException;
+>>>>>>> Stashed changes
 
-import java.util.Scanner;
 import java.util.Stack;
 
 /**
@@ -14,10 +18,16 @@ import java.util.Stack;
 
 public class Client {
 
+<<<<<<< Updated upstream
+=======
+
+    public static void main(String[] args) throws customException {
+>>>>>>> Stashed changes
 
     public static void main(String[] args) throws NoSuchFieldException {
 
         Stack<Command> history = new Stack<>();
+<<<<<<< Updated upstream
         //This will send to the invoker
         //Reciever will then be triggered to execute.
 
@@ -45,6 +55,24 @@ public class Client {
             counter++;
 
         }while(counter > 0);
+=======
+        Receiver data = new Receiver();
+
+        Command [] allCommands = {
+                new UpdateCommand(data,"1 name"),
+                new AddCommand(data,"firstName no email@gmail.com"),
+                new AddCommand(data,"firstName no email_"),
+        };
+
+
+        Invoker control = new Invoker();
+        control.setCommandsForExecution(allCommands);
+        control.executeCommand(history);
+
+        //This is from the ArrayList created from the receiver.
+        System.out.println(data.getData().toString());
+
+>>>>>>> Stashed changes
 
 
     }

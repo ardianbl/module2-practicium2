@@ -1,4 +1,12 @@
 package Command;
+<<<<<<< Updated upstream
+=======
+import Data.Receiver;
+import Exceptions.customException;
+
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+>>>>>>> Stashed changes
 
 
 /**
@@ -15,18 +23,45 @@ public class AddCommand implements Command {
     private final String emailAddress;
     private DataStore data;
 
+    boolean checkData(String emailToCheck){
+        Pattern pattern = Pattern.compile("(^[\\w\\-\\.]+@([\\w-]+\\.)+[\\w-]{2,}$|\\w)");
+        Matcher matcher = pattern.matcher(emailToCheck);
 
-    public String getFirst_name() {
-        return first_name;
+        return matcher.find();
+
     }
 
+<<<<<<< Updated upstream
     //Create payload object.
     public AddCommand(DataStore data, String first_name, String last_name, String emailAddress)
+=======
+    String setTitleCase (String wordToSet)
+>>>>>>> Stashed changes
     {
+        for (int i = 0; i < wordToSet.length(); i++) {
+            String firstLetter = wordToSet.substring(0, 1).toUpperCase();
+            String otherLetter = wordToSet.substring(1).toLowerCase();
+            wordToSet = firstLetter + otherLetter;
+        }
+
+        return wordToSet;
+
+    }
+
+
+    //Create payload object.
+    //Check validate here.
+    public AddCommand(Receiver data,String params)
+    {
+
+        String[] result = params.replaceAll("\\s{2,}", " ").split(" ");
+        if(result.length != 3) throw new customException("Invalid number of input for add command.");
+
+        this.first_name = setTitleCase(result[0]);
+        this.last_name = setTitleCase(result[1]);
+        if(!checkData(result[2])) throw new customException("Invalid input.");
+        this.emailAddress = result[2].contains("@") ? result[2]:setTitleCase(result[2]);
         this.data = data;
-        this.first_name = first_name;
-        this.last_name = last_name;
-        this.emailAddress = emailAddress;
     }
 
     @Override
