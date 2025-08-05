@@ -1,5 +1,4 @@
-package Command;
-import core.Receiver;
+
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -55,6 +54,7 @@ public class AddCommand implements Command {
         this.data = data;
     }
 
+public class UndoCommand implements Command {
     @Override
     public void execute() {
         data.addEntry(this.first_name, this.last_name, this.emailAddress);
