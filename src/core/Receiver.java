@@ -19,16 +19,19 @@ public class Receiver {
 // if add and dataStore did not exist create A NEW file, add data and save.
 //Execute the command.
 
-    private ArrayList<String> data = new ArrayList<>();
+    private ArrayList<String> employeeList = new ArrayList<>();
     private boolean isExist = false;
     private boolean isSaved = false; // to detect when to gather the latest data after being saved.
 
-    public ArrayList<String> getData() {
-        return data;
+    public ArrayList<String> getEmployeeList() {
+        return employeeList;
+    }
+    public int getEmployeeCount() {
+        return employeeList.size();
     }
 
-    public void setData(ArrayList<String> data) {
-        this.data = data;
+    public void setEmployeeList(ArrayList<String> employeeList) {
+        this.employeeList = employeeList;
     }
 
     //Passed the data in the file into the array called data for the command to use.
@@ -40,7 +43,7 @@ public class Receiver {
             try (BufferedReader reader = Files.newBufferedReader(filepath)) {
                 String line;
                 while ((line = reader.readLine()) != null) {
-                    data.add(line);
+                    employeeList.add(line);
                 }
 
             } catch (IOException e) {
@@ -53,13 +56,14 @@ public class Receiver {
     ;
 
     public void addEntry(String first_name, String last_name, String emailAddress) {
+        Boolean isValidEmail = Validator.isEmailValid(emailAddress);
         String currentEntry = String.format("%s %s %s", first_name, last_name, emailAddress);
-        data.add(currentEntry);
+        employeeList.add(currentEntry);
     }
 
     public void updateEntry(int index, String first_name, String last_name, String emailAddress) {
         try {
-            String currentDataLine = data.get(index);
+            String currentDataLine = employeeList.get(index);
             String[] splitCurrent = currentDataLine.split(" ");
 
             if (!first_name.equals("-")) splitCurrent[0] = first_name;
@@ -68,12 +72,21 @@ public class Receiver {
 
             String updatedValue = String.format("%s %s %s", splitCurrent[0], splitCurrent[1], splitCurrent[2]);
 
-            data.set(index, updatedValue);
+            employeeList.set(index, updatedValue);
         } catch (IndexOutOfBoundsException e) {
             throw new Exceptions.CommandException("Invalid index number, entry does not exist.");
         }
 
     }
-
+    public void list() {
+        int number = 1;
+        for (String s : employeeList) {
+            System.out.printf("%02d. %s\n", number, s);
+            number++;
+        }
+    }
+    public void delete(int index){
+        employeeList.remove(index);
+    }
 
 }

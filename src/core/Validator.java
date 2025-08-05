@@ -1,6 +1,6 @@
 package core;
 
-import exceptions.CommandException;
+import Exceptions.CommandException;
 
 public class Validator {
     private static Receiver receiver;
@@ -40,18 +40,18 @@ public class Validator {
         String lastName = payloadArray[2];
         String email = payloadArray[3];
 
-        if (!isIndexValid(Integer.parseInt(index))) {
-            throw new CommandException("Index is not in the list");
-        }
+//        if (!isIndexValid(Integer.parseInt(index))) {
+//            throw new CommandException("Index is not in the list");
+//        }
 
-        if (!isEmailValid(email)) {
-            throw new CommandException("Email format is invalid.");
-        }
+//        if (!isEmailValid(email)) {
+//            throw new CommandException("Email format is invalid.");
+//        }
 
         return new String[]{index, firstName, lastName, email};
     }
 
-    private static boolean isEmailValid(String email) {
+    protected static boolean isEmailValid(String email) {
         String regex = "(?i)^[a-z0-9_]+(?:[.-][a-z0-9_]+)*@" +  // local
                 "[a-z0-9]+(?:[.-][a-z0-9]+)*\\.[a-z]{2,3}$";    // domain
 

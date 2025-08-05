@@ -1,6 +1,4 @@
-import Command.AddCommand;
-import Command.UpdateCommand;
-import Command.Command;
+import command.*;
 import core.Receiver;
 import invoker.Invoker;
 
@@ -22,9 +20,11 @@ public class Client {
         Receiver data = new Receiver();
 
         Command [] allCommands = {
-                new UpdateCommand(data,"1 name"),
-                new AddCommand(data,"firstName no email@gmail.com"),
-                new AddCommand(data,"firstName no email_"),
+//                new UpdateCommand(data,"1 name"),
+//                new AddCommand(data,"firstName no email@gmail.com"),
+//                new AddCommand(data,"firstName no email_"),
+                new DeleteCommand(data,"2"),
+                new ListCommand(data)
         };
 
 
@@ -33,7 +33,7 @@ public class Client {
         control.executeCommand(history);
 
         //This is from the ArrayList created from the receiver.
-        System.out.println(data.getData().toString());
+        System.out.println(data.getEmployeeList().toString());
 
 
 

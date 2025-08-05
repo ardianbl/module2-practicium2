@@ -1,4 +1,8 @@
-package exceptions;
+package Exceptions;
 
-public class CommandException {
+public class CommandException extends RuntimeException {
+    public CommandException(String message) {
+        super(message);
+    }
 }
+

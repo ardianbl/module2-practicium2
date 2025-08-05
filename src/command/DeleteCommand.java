@@ -13,10 +13,10 @@ public class DeleteCommand implements Command {
     private Receiver receiver;
     private int index;
 
-    public DeleteCommand(Receiver receiver, int index) {
+    public DeleteCommand(Receiver receiver, String index) {
         this.receiver = receiver;
-//        Validator.isIndexValid(index);
-        this.index = index;
+//        Validator.isIndexValid(Integer.parseInt(index));
+        this.index = (Integer.parseInt(index)-1);
     }
 
     @Override
