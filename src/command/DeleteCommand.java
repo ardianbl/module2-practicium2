@@ -1,4 +1,6 @@
-package Command;
+package command;
+
+import core.*;
 
 /**
  * Concrete Commands implements the various kinds of commands. A concrete command
@@ -8,6 +10,17 @@ package Command;
  */
 
 public class DeleteCommand implements Command {
+    private Receiver receiver;
+    private int index;
+
+    public DeleteCommand(Receiver receiver, int index) {
+        this.receiver = receiver;
+//        Validator.isIndexValid(index);
+        this.index = index;
+    }
+
     @Override
-    public void execute() {}
+    public void execute() {
+        receiver.delete(index);
+    }
 }
