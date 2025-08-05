@@ -1,4 +1,4 @@
-package Command;
+package command;
 
 /**
  * Concrete Commands implements the various kinds of commands. A concrete command
@@ -7,7 +7,7 @@ package Command;
  * declared as fields in the concrete command.
  */
 
-public class AddCommand implements Command {
+public class UndoCommand implements Command {
     @Override
     public void execute() {}
 }
