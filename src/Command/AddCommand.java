@@ -1,15 +1,12 @@
 package Command;
-<<<<<<< Updated upstream
-=======
 import Data.Receiver;
 import Exceptions.customException;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
->>>>>>> Stashed changes
 
 
-/**
+/**gt
  * Concrete Commands implements the various kinds of commands. A concrete command
  * isn’t supposed to perform the work on its own, but rather to pass the call to one of the
  * business logic objects. Parameters required to execute a method on a receiving object can be
@@ -17,11 +14,11 @@ import java.util.regex.Pattern;
  */
 
 public class AddCommand implements Command {
-
+    //Change input to params.
     private final String first_name;
     private final String last_name;
     private final String emailAddress;
-    private DataStore data;
+    private Receiver data;
 
     boolean checkData(String emailToCheck){
         Pattern pattern = Pattern.compile("(^[\\w\\-\\.]+@([\\w-]+\\.)+[\\w-]{2,}$|\\w)");
@@ -31,12 +28,7 @@ public class AddCommand implements Command {
 
     }
 
-<<<<<<< Updated upstream
-    //Create payload object.
-    public AddCommand(DataStore data, String first_name, String last_name, String emailAddress)
-=======
     String setTitleCase (String wordToSet)
->>>>>>> Stashed changes
     {
         for (int i = 0; i < wordToSet.length(); i++) {
             String firstLetter = wordToSet.substring(0, 1).toUpperCase();
@@ -66,7 +58,7 @@ public class AddCommand implements Command {
 
     @Override
     public void execute() {
-        data.addEntry();
+        data.addEntry(this.first_name, this.last_name, this.emailAddress);
     }
 
 }

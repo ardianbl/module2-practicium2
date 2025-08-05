@@ -1,12 +1,9 @@
 package Command;
-<<<<<<< Updated upstream
-=======
 import Data.Receiver;
 import Exceptions.customException;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
->>>>>>> Stashed changes
 
 /**
  * Concrete Commands implements the various kinds of commands. A concrete command
@@ -15,11 +12,6 @@ import java.util.regex.Pattern;
  * declared as fields in the concrete command.
  */
 
-<<<<<<< Updated upstream
-public class UpdateCommand implements Command {
-    @Override
-    public void execute() {}
-=======
 public class UpdateCommand implements Command  {
     private final String first_name;
     private final String last_name;
@@ -86,5 +78,4 @@ public class UpdateCommand implements Command  {
         //Can just set it into the correct format to be set.
         data.updateEntry(this.indexNumber,this.first_name, this.last_name, this.emailAddress);
     }
->>>>>>> Stashed changes
 }
