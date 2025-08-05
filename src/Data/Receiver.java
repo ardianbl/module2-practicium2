@@ -1,5 +1,7 @@
 package Data;
 
+import Exceptions.customException;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.nio.file.Files;
@@ -11,7 +13,7 @@ import java.util.ArrayList;
  * The Receiver class contains some business logic. Almost any object may act as a receiver.
  * Most commands only handle the details of how a request is passed to the receiver, while the
  * receiver itself does the actual work.
- *
+ * <p>
  * Include a storeToFile() method in your class that handles the data store.
  */
 public class Receiver {
@@ -36,7 +38,7 @@ public class Receiver {
         Path filepath = Paths.get("./src/dataStore.txt");
         isExist = Files.exists(filepath);
 
-        if(isExist) {
+        if (isExist) {
             try (BufferedReader reader = Files.newBufferedReader(filepath)) {
                 String line;
                 while ((line = reader.readLine()) != null) {
@@ -48,26 +50,30 @@ public class Receiver {
             }
         }
 
-    };
+    }
+
+    ;
 
     public void addEntry(String first_name, String last_name, String emailAddress) {
-        String currentEntry = String.format("%s %s %s",first_name,last_name,emailAddress);
+        String currentEntry = String.format("%s %s %s", first_name, last_name, emailAddress);
         data.add(currentEntry);
     }
 
-    public void updateEntry(String index,String first_name, String last_name, String emailAddress)
-    {
-        int currentIndex = Integer.parseInt(index)-1;
-        String currentDataLine = data.get(currentIndex);
-        String [] splitCurrent = currentDataLine.split(" ");
+    public void updateEntry(int index, String first_name, String last_name, String emailAddress) {
+        try {
+            String currentDataLine = data.get(index);
+            String[] splitCurrent = currentDataLine.split(" ");
 
-        if(!first_name.equals("-")) splitCurrent[0] = first_name;
-        if(!last_name.equals("-")) splitCurrent[1] = last_name;
-        if(!emailAddress.equals("-")) splitCurrent[2] = emailAddress;
+            if (!first_name.equals("-")) splitCurrent[0] = first_name;
+            if (!last_name.equals("-")) splitCurrent[1] = last_name;
+            if (!emailAddress.equals("-")) splitCurrent[2] = emailAddress;
 
-        String updatedValue = String.format("%s %s %s",splitCurrent[0],splitCurrent[1],splitCurrent[2]);
+            String updatedValue = String.format("%s %s %s", splitCurrent[0], splitCurrent[1], splitCurrent[2]);
 
-        data.set(currentIndex,updatedValue);
+            data.set(index, updatedValue);
+        } catch (IndexOutOfBoundsException e) {
+            throw new customException("Invalid index number, entry does not exist.");
+        }
 
     }
 
