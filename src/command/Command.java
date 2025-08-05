@@ -1,12 +1,11 @@
-package command;
+package Command;
+
+import java.util.ArrayList;
 
 /**
- * Command interface with skeleton execute method.
+ * The Command interface usually declares just a single method for executing the command.
  */
 
 public interface Command {
-    /**
-     * Execute method to be implemented by concrete Command class
-     */
     default void execute() {}
 }

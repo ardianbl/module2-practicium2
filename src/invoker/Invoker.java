@@ -1,6 +1,6 @@
 package invoker;
 
-import command.Command;
+import Command.Command;
 
 import java.util.Stack;
 
@@ -14,9 +14,24 @@ import java.util.Stack;
 public class Invoker {
     private Command[] cmdToExecute;
 
-    public void setCommandsForExecution(Command[] cmdToExecute) {
-
+    public void setCommandsForExecution(Command[] commandToAdd) {
+        this.cmdToExecute = commandToAdd;
     }
+
     public void executeCommand(Stack<Command> history) {
+        //Execute is link to the execute() in each of the subclass;
+        // Update the stackHistory;
+        for(Command cmd : cmdToExecute)
+        {
+            cmd.execute();
+            // !!!!!!use instance of to update history only for add,delete and update.
+            history.push(cmd);
+        }
+
+//        if(!history.isEmpty())
+//        {
+//            Command lastCommand = history.peek();
+//            lastCommand.execute();
+//        }
     }
 }

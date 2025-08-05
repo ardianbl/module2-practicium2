@@ -1,5 +1,10 @@
+import Command.AddCommand;
+import Command.UpdateCommand;
+import Command.Command;
 import core.Receiver;
-import util.FileHandler;
+import invoker.Invoker;
+
+import java.util.Stack;
 
 /**
  * The Client creates and configures the concrete command objects. The client must pass all
@@ -8,7 +13,30 @@ import util.FileHandler;
  */
 
 public class Client {
-    public static void main(String[] args) {
-        Receiver receiver = new Receiver();
+
+
+    public static void main(String[] args) throws Exceptions.CommandException {
+
+
+        Stack<Command> history = new Stack<>();
+        Receiver data = new Receiver();
+
+        Command [] allCommands = {
+                new UpdateCommand(data,"1 name"),
+                new AddCommand(data,"firstName no email@gmail.com"),
+                new AddCommand(data,"firstName no email_"),
+        };
+
+
+        Invoker control = new Invoker();
+        control.setCommandsForExecution(allCommands);
+        control.executeCommand(history);
+
+        //This is from the ArrayList created from the receiver.
+        System.out.println(data.getData().toString());
+
+
+
     }
+
 }
