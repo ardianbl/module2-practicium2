@@ -1,6 +1,4 @@
-package Data;
-
-import Exceptions.customException;
+package core;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -72,7 +70,7 @@ public class Receiver {
 
             data.set(index, updatedValue);
         } catch (IndexOutOfBoundsException e) {
-            throw new customException("Invalid index number, entry does not exist.");
+            throw new Exceptions.CommandException("Invalid index number, entry does not exist.");
         }
 
     }

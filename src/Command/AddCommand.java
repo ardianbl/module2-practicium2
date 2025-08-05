@@ -1,6 +1,5 @@
 package Command;
-import Data.Receiver;
-import Exceptions.customException;
+import core.Receiver;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -21,7 +20,7 @@ public class AddCommand implements Command {
     private Receiver data;
 
     boolean checkData(String emailToCheck){
-        Pattern pattern = Pattern.compile("(^[\\w\\-\\.]+@([\\w-]+\\.)+[\\w-]{2,}$|\\w)");
+        Pattern pattern = Pattern.compile("(^[\\w\\-\\.]+@([\\w-]+\\.)+[\\w-]{2,3}$|\\w)");
         Matcher matcher = pattern.matcher(emailToCheck);
 
         return matcher.find();
@@ -47,11 +46,11 @@ public class AddCommand implements Command {
     {
 
         String[] result = params.replaceAll("\\s{2,}", " ").split(" ");
-        if(result.length != 3) throw new customException("Invalid number of input for add command.");
+        if(result.length != 3) throw new Exceptions.CommandException("Invalid number of input for add command.");
 
         this.first_name = setTitleCase(result[0]);
         this.last_name = setTitleCase(result[1]);
-        if(!checkData(result[2])) throw new customException("Invalid input.");
+        if(!checkData(result[2])) throw new Exceptions.CommandException("Invalid input.");
         this.emailAddress = result[2].contains("@") ? result[2]:setTitleCase(result[2]);
         this.data = data;
     }

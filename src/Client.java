@@ -1,12 +1,10 @@
 import Command.AddCommand;
 import Command.UpdateCommand;
 import Command.Command;
-import Data.Receiver;
-import Exceptions.customException;
+import core.Receiver;
+import invoker.Invoker;
 
 import java.util.Stack;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 /**
  * The Client creates and configures the concrete command objects. The client must pass all
@@ -17,7 +15,7 @@ import java.util.regex.Pattern;
 public class Client {
 
 
-    public static void main(String[] args) throws customException {
+    public static void main(String[] args) throws Exceptions.CommandException {
 
 
         Stack<Command> history = new Stack<>();

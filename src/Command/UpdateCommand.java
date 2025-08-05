@@ -1,6 +1,5 @@
 package Command;
-import Data.Receiver;
-import Exceptions.customException;
+import core.Receiver;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -42,18 +41,18 @@ public class UpdateCommand implements Command  {
 
     //Create payload object.
     //Might not need to have so many. Because I can take in the params and then
-    public UpdateCommand(Receiver data, String params) throws customException
+    public UpdateCommand(Receiver data, String params) throws Exceptions.CommandException
     {
 
         String data1="-",data2="-",data3="-";
         String[] result = params.replaceAll("\\s{2,}", " ").split(" ");
 
-        if(result.length < 2) throw new customException("Invalid number of input for update command.");
+        if(result.length < 2) throw new Exceptions.CommandException("Invalid number of input for update command.");
         data1 =  result[1];
         if(result.length >= 3) data2 =  result[2];
         if(result.length >= 4)
         {
-            if(!checkData(result[3])) throw new customException("Invalid email address.");
+            if(!checkData(result[3])) throw new Exceptions.CommandException("Invalid email address.");
             data3 =  result[3];
         }
 
@@ -64,9 +63,9 @@ public class UpdateCommand implements Command  {
             this.emailAddress = data3;
             this.data = data;
         }catch(NumberFormatException e) {
-            throw new customException("Index number must be an integer.");
+            throw new Exceptions.CommandException("Index number must be an integer.");
         }catch (IndexOutOfBoundsException e) {
-            throw new customException("Invalid index number for the update.");
+            throw new Exceptions.CommandException("Invalid index number for the update.");
         }
 
 
