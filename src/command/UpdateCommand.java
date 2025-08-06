@@ -67,6 +67,7 @@ public class UpdateCommand implements Command  {
 
         //Can just set it into the correct format to be set.
         receiver.updateEntry(indexNumber,first_name, last_name, emailAddress);
+        System.out.println("update");
     }
 
     @Override
