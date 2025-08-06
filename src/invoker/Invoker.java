@@ -27,7 +27,8 @@ public class Invoker {
         {
             try {
                 cmd.execute();
-                if (!(cmd instanceof UndoCommand) && !(cmd instanceof ListCommand)) {
+                if (cmd.isStackItem()) {
+                    System.out.println(cmd);
                     history.push(cmd);
                 }
             }catch (CommandException e)

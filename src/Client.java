@@ -14,31 +14,62 @@ public class Client {
 
 
     public static void main(String[] args) throws Exceptions.CommandException {
-
-
         Stack<Command> history = new Stack<>();
-        Receiver data = new Receiver();
+        Receiver receiver = new Receiver();
 
         Command [] allCommands = {
-                new AddCommand(data,"firstName no email@gmail.com"),
-                new UpdateCommand(data,"1 hw"),
-                new DeleteCommand(data,"1"),
-                new UndoCommand(history),
-                new ListCommand(data)
-        };
+//                new UpdateCommand(receiver, "1"), //
+//                new UpdateCommand(receiver, "1 firstName lastName"),
+//                new UpdateCommand(receiver, "1 firstName lastName .ardian@email.com"), //
+//                new UpdateCommand(receiver, "1 firstName lastName -ardian@email.com"), //
+//                new UpdateCommand(receiver, "1 firstName lastName _ardian@email.com"),
+//                new UpdateCommand(receiver, "1 firstName lastName _a..rdian@email.com"), //
+//                new UpdateCommand(receiver, "1 firstName lastName _a--rdian@email.com"), //
+//                new UpdateCommand(receiver, "1 firstName lastName _a-r-dian@email.com"),
+//                new UpdateCommand(receiver, "1 firstName lastName _ardian@.email.com"), //
+//                new UpdateCommand(receiver, "1 firstName lastName _ardian@email..com"), //
+//                new UpdateCommand(receiver, "1 firstName lastName _ardian@-email.com"), //
+//                new UpdateCommand(receiver, "1 firstName lastName _ardian@email-.com"), //
+//                new UpdateCommand(receiver, "1 firstName lastName _ardian@_email.com"), //
+//                new UpdateCommand(receiver, "1 firstName lastName _ardian@_email.comm"), //
 
+                new AddCommand(receiver,"name1 name2 email@gmail.com"),
+                new AddCommand(receiver,"name2 name3 email@gmail.com"),
+                new AddCommand(receiver,"name3 name4 email@gmail.com"),
+                new ListCommand(receiver),
+
+                new DeleteCommand(receiver,"1"),
+                new DeleteCommand(receiver,"1"),
+                new ListCommand(receiver),
+
+                new UndoCommand(receiver, history),
+                new UndoCommand(receiver, history),
+                new UndoCommand(receiver, history),
+                new UndoCommand(receiver, history),
+                new ListCommand(receiver),
+
+                new UpdateCommand(receiver,"1 name"),
+                new ListCommand(receiver),
+
+                new UndoCommand(receiver, history),
+                new ListCommand(receiver),
+
+//                new AddCommand(receiver, "firstName no email@gmail.com"),
+//                new AddCommand(receiver, "firstName no email_"),
+////                    new UndoCommand(history),
+//                new ListCommand(receiver),
+//                new DeleteCommand(receiver, "1, 2"),
+//                new UndoCommand(receiver, history),
+//                new ListCommand(receiver),
+        };
 
         Invoker control = new Invoker();
         control.setCommandsForExecution(allCommands);
         control.executeCommand(history);
-        data.storeToFile();
-
-
+        receiver.storeToFile();
 
         //This is from the ArrayList created from the receiver.
-        System.out.println(data.getEmployeeList().toString());
-
-
+        System.out.println(receiver.getEmployeeList().toString());
 
     }
 

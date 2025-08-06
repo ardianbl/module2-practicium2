@@ -6,9 +6,11 @@ import core.*;
 import java.util.Stack;
 
 public class UndoCommand implements Command  {
+    private Receiver receiver;
     private Stack<Command> history;
 
-    public UndoCommand(Stack<Command> history ) {
+    public UndoCommand(Receiver receiver, Stack<Command> history) {
+        this.receiver = receiver;
         this.history = history;
     }
 
@@ -19,19 +21,6 @@ public class UndoCommand implements Command  {
             Command lastCommand = history.pop();
             lastCommand.undo();
             System.out.println("Undo");
-
-            //Not a good way
-//            Command lastCommand = history.pop();
-//            int currentSize = receiver.getEmployeeList().size();
-//            for(Command item:history)
-//            {
-//                item.execute();
-//            }
-//            for(int i = 0; i < currentSize; i++)
-//            {
-//                receiver.delete(i+1);
-//            }
-
         }
 
     }

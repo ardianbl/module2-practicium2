@@ -75,4 +75,9 @@ public class UpdateCommand implements Command  {
         String [] updateEntry = toBeUpdated.split(" ");
         receiver.updateEntry(indexNumber,updateEntry[0],updateEntry[1],updateEntry[2]);
     }
+
+    @Override
+    public boolean isStackItem() {
+        return true;
+    }
 }

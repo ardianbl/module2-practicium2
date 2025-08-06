@@ -18,7 +18,7 @@ public class AddCommand implements Command {
     private String first_name;
     private String last_name;
     private String email;
-    private int indexToAdd;
+    private int indexToDelete;
 
 
 
@@ -48,18 +48,21 @@ public class AddCommand implements Command {
             if(!Validator.isDataWithUnderScore(result[2])) throw new CommandException("Invalid input.");
             email = result[2];
         }
-        indexToAdd = data.getEmployeeCount()+1;
 
         data.addEntry(first_name, last_name, email);
+        indexToDelete = data.getEmployeeCount()-1;
         System.out.println("add");
     }
 
     @Override
     public void undo(){
-        data.delete(indexToAdd);
+        data.delete(indexToDelete);
     }
 
-
+    @Override
+    public boolean isStackItem() {
+        return true;
+    }
 
 
 }

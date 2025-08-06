@@ -43,4 +43,8 @@ public class DeleteCommand implements Command {
         //must get the index and the item to put back.
     }
 
+    @Override
+    public boolean isStackItem() {
+        return true;
+    }
 }
