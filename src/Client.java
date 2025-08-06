@@ -31,6 +31,7 @@ public class Client {
         Invoker control = new Invoker();
         control.setCommandsForExecution(allCommands);
         control.executeCommand(history);
+        data.storeToFile();
 
 
 
