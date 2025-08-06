@@ -33,6 +33,7 @@ public class DeleteCommand implements Command {
             throw new CommandException("Error: Invalid input.");
         }
         receiver.delete(index);
+        System.out.println("Delete");
     }
 
     @Override
