@@ -18,6 +18,7 @@ public class UndoCommand implements Command  {
         {
             Command lastCommand = history.pop();
             lastCommand.undo();
+            System.out.println("Undo");
 
             //Not a good way
 //            Command lastCommand = history.pop();
