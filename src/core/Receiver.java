@@ -1,10 +1,8 @@
 package core;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
+import model.Employee;
+import util.FileHandler;
+
 import java.util.ArrayList;
 
 /**
@@ -12,68 +10,46 @@ import java.util.ArrayList;
  * Most commands only handle the details of how a request is passed to the receiver, while the
  * receiver itself does the actual work.
  * <p>
- * Include a storeToFile() method in your class that handles the data store.
+ * Include a storeToFile() method in your class that handles the employeeList store.
  */
 public class Receiver {
-//Check if dataStore exist in the folder. Get data and put into an array.
-// if add and dataStore did not exist create A NEW file, add data and save.
-//Execute the command.
 
-    private ArrayList<String> data = new ArrayList<>();
-    private boolean isExist = false;
-    private boolean isSaved = false; // to detect when to gather the latest data after being saved.
+    private ArrayList<Employee> employeeList = new ArrayList<>();
 
-    public ArrayList<String> getData() {
-        return data;
-    }
-
-    public void setData(ArrayList<String> data) {
-        this.data = data;
-    }
-
-    //Passed the data in the file into the array called data for the command to use.
     public Receiver() {
-        Path filepath = Paths.get("./src/dataStore.txt");
-        isExist = Files.exists(filepath);
+        employeeList = FileHandler.populateList(employeeList);
+    }
 
-        if (isExist) {
-            try (BufferedReader reader = Files.newBufferedReader(filepath)) {
-                String line;
-                while ((line = reader.readLine()) != null) {
-                    data.add(line);
-                }
+    public void add(Employee employee) {
+        employeeList.add(employee);
+    }
 
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+    public void update(int index, Employee employeeDetail) {
+        employeeList.set(index, employeeDetail);
+    }
+
+    public void delete(Employee employee) {
+        employeeList.remove(employee);
+    }
+
+    public void list() {
+        int number = 1;
+        System.out.println("List");
+        for (Employee e : employeeList) {
+            System.out.printf("%02d. %s%n", number, e);
+            number++;
         }
-
     }
 
-    ;
-
-    public void addEntry(String first_name, String last_name, String emailAddress) {
-        String currentEntry = String.format("%s %s %s", first_name, last_name, emailAddress);
-        data.add(currentEntry);
+    public int getEmployeeCount() {
+        return employeeList.size();
     }
 
-    public void updateEntry(int index, String first_name, String last_name, String emailAddress) {
-        try {
-            String currentDataLine = data.get(index);
-            String[] splitCurrent = currentDataLine.split(" ");
-
-            if (!first_name.equals("-")) splitCurrent[0] = first_name;
-            if (!last_name.equals("-")) splitCurrent[1] = last_name;
-            if (!emailAddress.equals("-")) splitCurrent[2] = emailAddress;
-
-            String updatedValue = String.format("%s %s %s", splitCurrent[0], splitCurrent[1], splitCurrent[2]);
-
-            data.set(index, updatedValue);
-        } catch (IndexOutOfBoundsException e) {
-            throw new Exceptions.CommandException("Invalid index number, entry does not exist.");
-        }
-
+    public ArrayList<Employee> getEmployeeList() {
+        return employeeList;
     }
 
-
+    public Employee getEmployee(int index) {
+        return employeeList.get(index);
+    }
 }

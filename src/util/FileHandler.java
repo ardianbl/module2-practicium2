@@ -1,5 +1,8 @@
 package util;
 
+import core.Receiver;
+import model.Employee;
+
 import java.io.IOException;
 import java.nio.file.*;
 import java.util.*;
@@ -19,7 +22,7 @@ public class FileHandler {
      */
     private static final Path FILE_PATH = Paths.get("src", FILE_NAME);
 
-    public static ArrayList<String> populateList(ArrayList<String> employeeList) {
+    public static ArrayList<Employee> populateList(ArrayList<Employee> employeeList) {
         try {
 //            Path dir = FILE_PATH.getParent();
 //            // check if the file directory exist
@@ -36,7 +39,13 @@ public class FileHandler {
                 List<String> lines = Files.readAllLines(FILE_PATH);
                 if (!lines.isEmpty()) {
                     employeeList.clear();
-                    employeeList.addAll(Files.readAllLines(FILE_PATH));
+                    for (String line : lines) {
+                        String[] split = line.split(" ");
+                        String firstName = split[0];
+                        String lastName = split[1];
+                        String email = split[2];
+                        employeeList.add(new Employee(firstName, lastName, email));
+                    }
                     System.out.println("Successfully read from file. Employee list is updated.");
                 } else {
                     System.out.println("File is empty. Employee list is not updated.");
@@ -49,9 +58,13 @@ public class FileHandler {
         return employeeList;
     }
 
-    public void storeToFile(ArrayList<String> employeeList) {
+    public static void storeToFile(Receiver receiver) {
         try {
-            Files.write(FILE_PATH, employeeList, StandardOpenOption.TRUNCATE_EXISTING);
+            List<String> lines = new ArrayList<>();
+            for (Employee e : receiver.getEmployeeList()) {
+                lines.add(e.toString());
+            }
+            Files.write(FILE_PATH, lines, StandardOpenOption.TRUNCATE_EXISTING);
             System.out.println("Data saved to file.");
         } catch (IOException e) {
             System.out.println("Error writing to file: " + e.getMessage());
