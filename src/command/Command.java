@@ -7,5 +7,8 @@ import java.util.ArrayList;
  */
 
 public interface Command {
-    default void execute() {}
+    default void execute() {};
+    default void undo() {}
+
+
 }

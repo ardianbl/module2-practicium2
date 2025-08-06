@@ -1,11 +1,15 @@
 package core;
 
+import Exceptions.CommandException;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
+
+import static core.Validator.*;
 
 /**
  * The Receiver class contains some business logic. Almost any object may act as a receiver.
@@ -21,10 +25,18 @@ public class Receiver {
 
     private ArrayList<String> employeeList = new ArrayList<>();
     private boolean isExist = false;
-    private boolean isSaved = false; // to detect when to gather the latest data after being saved.
 
     public ArrayList<String> getEmployeeList() {
         return employeeList;
+    }
+
+    public String getEmployee (int index){
+
+        try {
+            return employeeList.get(index);
+        }catch (IndexOutOfBoundsException e){
+            throw new IndexOutOfBoundsException("Entry does not exist");
+        }
     }
     public int getEmployeeCount() {
         return employeeList.size();
@@ -53,10 +65,7 @@ public class Receiver {
 
     }
 
-    ;
-
     public void addEntry(String first_name, String last_name, String emailAddress) {
-        Boolean isValidEmail = Validator.isEmailValid(emailAddress);
         String currentEntry = String.format("%s %s %s", first_name, last_name, emailAddress);
         employeeList.add(currentEntry);
     }
@@ -73,8 +82,9 @@ public class Receiver {
             String updatedValue = String.format("%s %s %s", splitCurrent[0], splitCurrent[1], splitCurrent[2]);
 
             employeeList.set(index, updatedValue);
+
         } catch (IndexOutOfBoundsException e) {
-            throw new Exceptions.CommandException("Invalid index number, entry does not exist.");
+            throw new CommandException("Invalid index number, entry does not exist.");
         }
 
     }
@@ -85,8 +95,22 @@ public class Receiver {
             number++;
         }
     }
-    public void delete(int index){
-        employeeList.remove(index);
+
+
+    public void delete(int index ){
+        try {
+            employeeList.remove(index); //Can just directly, it will just throw an error if it does not exist.
+        } catch (IndexOutOfBoundsException e) {
+            throw new CommandException("Invalid index number, entry does not exist.");
+        }
     }
+
+    public void setEntry(int index, String currentEntry) {
+        employeeList.add(index, currentEntry);
+    }
+
+
+//
+
 
 }

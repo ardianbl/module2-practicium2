@@ -1,6 +1,9 @@
 package invoker;
 
+import Exceptions.CommandException;
 import command.Command;
+import command.UndoCommand;
+import command.ListCommand;
 import java.util.Stack;
 
 /**
@@ -22,15 +25,15 @@ public class Invoker {
         // Update the stackHistory;
         for(Command cmd : cmdToExecute)
         {
-            cmd.execute();
-            // !!!!!!use instance of to update history only for add,delete and update.
-            history.push(cmd);
+            try {
+                cmd.execute();
+                if (!(cmd instanceof UndoCommand) && !(cmd instanceof ListCommand)) {
+                    history.push(cmd);
+                }
+            }catch (CommandException e)
+            {
+                System.out.println("Error:"+e.getMessage());
+            }
         }
-
-//        if(!history.isEmpty())
-//        {
-//            Command lastCommand = history.peek();
-//            lastCommand.execute();
-//        }
     }
 }

@@ -3,9 +3,6 @@ package command;
 import Exceptions.CommandException;
 import core.*;
 
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-
 /**
  * Concrete Commands implements the various kinds of commands. A concrete command
  * isn’t supposed to perform the work on its own, but rather to pass the call to one of the
@@ -14,37 +11,25 @@ import java.util.regex.Pattern;
  */
 
 public class UpdateCommand implements Command  {
-    private final String first_name;
-    private final String last_name;
-    private final String emailAddress;
-    private final int indexNumber;
-    private Receiver data;
+    private String first_name;
+    private String last_name;
+    private String emailAddress;
+    private String params;
+    private int indexNumber;
+    private String toBeUpdated;
+    private Receiver receiver;
 
 
-    boolean checkData(String emailToCheck){
-        Pattern pattern = Pattern.compile("^[\\w\\-\\.]+@([\\w-]+\\.)+[\\w-]{2,}$");
-        Matcher matcher = pattern.matcher(emailToCheck);
-
-        return matcher.find();
+    public UpdateCommand(Receiver receiver, String params)
+    {
+        this.receiver = receiver;
+        this.params = params;
 
     }
 
-    String setTitleCase (String wordToSet)
-    {
-        for (int i = 0; i < wordToSet.length(); i++) {
-            String firstLetter = wordToSet.substring(0, 1).toUpperCase();
-            String otherLetter = wordToSet.substring(1).toLowerCase();
-            wordToSet = firstLetter + otherLetter;
-        }
 
-        return wordToSet;
-
-    }
-
-    //Create payload object.
-    //Might not need to have so many. Because I can take in the params and then
-    public UpdateCommand(Receiver data, String params) throws CommandException
-    {
+    @Override
+    public void execute() {
 
         String data1="-",data2="-",data3="-";
         String[] result = params.replaceAll("\\s{2,}", " ").split(" ");
@@ -54,29 +39,39 @@ public class UpdateCommand implements Command  {
         if(result.length >= 3) data2 =  result[2];
         if(result.length >= 4)
         {
-            if(!checkData(result[3])) throw new CommandException("Invalid email address.");
-            data3 =  result[3];
+//            if(!Validator.isEmailValid(result[3])) throw new CommandException("Invalid email address.");
+//            data3 =  result[3];
+            if(result[3].contains("@"))
+            {
+                if(!Validator.isEmailValid(result[3])) throw new CommandException("Invalid input.");
+                data3 = result[3];
+            }
+            else{
+                if(!Validator.isDataWithUnderScore(result[3])) throw new CommandException("Invalid input.");
+                data3 = result[3];
+            }
+
         }
 
         try {
-            this.indexNumber = Integer.parseInt(result[0])-1;
-            this.first_name = setTitleCase(data1);
-            this.last_name = setTitleCase(data2);
-            this.emailAddress = data3;
-            this.data = data;
+            indexNumber = Integer.parseInt(result[0]) == 1 ? 0 : Integer.parseInt(result[0])-1 ;
+            first_name = Validator.setTitleCase(data1);
+            last_name = Validator.setTitleCase(data2);
+            emailAddress = data3;
+            toBeUpdated = this.receiver.getEmployee(this.indexNumber);
         }catch(NumberFormatException e) {
             throw new CommandException("Index number must be an integer.");
         }catch (IndexOutOfBoundsException e) {
             throw new CommandException("Invalid index number for the update.");
         }
 
-
+        //Can just set it into the correct format to be set.
+        receiver.updateEntry(indexNumber,first_name, last_name, emailAddress);
     }
 
-
     @Override
-    public void execute() {
-        //Can just set it into the correct format to be set.
-        data.updateEntry(this.indexNumber,this.first_name, this.last_name, this.emailAddress);
+    public void undo() {
+        String [] updateEntry = toBeUpdated.split(" ");
+        receiver.updateEntry(indexNumber,updateEntry[0],updateEntry[1],updateEntry[2]);
     }
 }

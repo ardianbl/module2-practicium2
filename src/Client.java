@@ -20,10 +20,10 @@ public class Client {
         Receiver data = new Receiver();
 
         Command [] allCommands = {
-//                new UpdateCommand(data,"1 name"),
-//                new AddCommand(data,"firstName no email@gmail.com"),
-//                new AddCommand(data,"firstName no email_"),
-                new DeleteCommand(data,"2"),
+                new AddCommand(data,"firstName no email@gmail.com"),
+                new UpdateCommand(data,"1 hw"),
+                new DeleteCommand(data,"1"),
+                new UndoCommand(history),
                 new ListCommand(data)
         };
 
@@ -31,6 +31,8 @@ public class Client {
         Invoker control = new Invoker();
         control.setCommandsForExecution(allCommands);
         control.executeCommand(history);
+
+
 
         //This is from the ArrayList created from the receiver.
         System.out.println(data.getEmployeeList().toString());

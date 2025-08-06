@@ -2,10 +2,12 @@ package core;
 
 import Exceptions.CommandException;
 
-public class Validator {
-    private static Receiver receiver;
+import java.util.ArrayList;
 
-    public static String[] checkAddPayloadValidity(String payload) throws CommandException {
+public class Validator {
+//    private static Receiver receiver;
+
+    public static String[] checkAddPayloadValidity(String payload) {
 
         if (payload == null || payload.trim().isEmpty()) {
             throw new CommandException("No input is detected");
@@ -26,7 +28,7 @@ public class Validator {
         return new String[]{firstName, lastName, email};
     }
 
-    public static String[] checkUpdatePayloadValidity(String payload) throws CommandException {
+    public static String[] checkUpdatePayloadValidity(String payload) {
         if (payload == null || payload.trim().isEmpty()) {
             throw new CommandException("No input is detected");
         }
@@ -51,14 +53,39 @@ public class Validator {
         return new String[]{index, firstName, lastName, email};
     }
 
-    protected static boolean isEmailValid(String email) {
-        String regex = "(?i)^[a-z0-9_]+(?:[.-][a-z0-9_]+)*@" +  // local
-                "[a-z0-9]+(?:[.-][a-z0-9]+)*\\.[a-z]{2,3}$";    // domain
+    public static boolean isEmailValid(String email) {
+
+//      String regex = "(?i)^[a-z0-9_]+(?:[.-][a-z0-9_]+)*@" +  // local
+//                "[a-z0-9]+(?:[.-][a-z0-9]+)*\\.[a-z]{2,3}$";    // domain
+
+        String regex ="^(?!.*(\\.\\.|__|--))[a-zA-Z0-9]+" +
+                "[\\w.-]+[a-zA-Z0-9]+" +
+                "@[a-zA-Z0-9]+[\\w.-]+" +
+                "[a-zA-Z0-9]+" +
+                "\\.[a-z]{2,3}$";
 
         return email.matches(regex);
     }
 
-    public static boolean isIndexValid(int index) {
-        return index > 0 && index <= receiver.getEmployeeCount();
+    public static boolean isDataWithUnderScore(String email) {
+
+        String regex = "^[a-zA-Z0-9_]{1,}+$";
+        return email.matches(regex);
     }
+
+    public static String setTitleCase (String wordToSet)
+    {
+        for (int i = 0; i < wordToSet.length(); i++) {
+            String firstLetter = wordToSet.substring(0, 1).toUpperCase();
+            String otherLetter = wordToSet.substring(1).toLowerCase();
+            wordToSet = firstLetter + otherLetter;
+        }
+
+        return wordToSet;
+
+    }
+
+//    public static boolean isIndexValid(int index) {
+//        return index > 0 && index <= receiver.getEmployeeCount();
+//    }
 }
