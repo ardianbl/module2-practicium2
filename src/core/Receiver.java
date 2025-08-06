@@ -3,7 +3,13 @@ package core;
 import model.Employee;
 import util.FileHandler;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.StandardOpenOption;
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * The Receiver class contains some business logic. Almost any object may act as a receiver.
@@ -14,6 +20,14 @@ import java.util.ArrayList;
  */
 public class Receiver {
 
+    /**
+     * File name constant for reading/writing employee list, i.e. dataStore.txt
+     */
+    private static final String FILE_NAME = "dataStore.txt";
+    /**
+     * File path constant for instance methods
+     */
+    private static final Path FILE_PATH = Paths.get("src", FILE_NAME);
     private ArrayList<Employee> employeeList = new ArrayList<>();
 
     public Receiver() {
@@ -51,5 +65,18 @@ public class Receiver {
 
     public Employee getEmployee(int index) {
         return employeeList.get(index);
+    }
+
+    public void storeToFile() {
+        try {
+            List<String> lines = new ArrayList<>();
+            for (Employee e : employeeList) {
+                lines.add(e.toString());
+            }
+            Files.write(FILE_PATH, lines, StandardOpenOption.TRUNCATE_EXISTING);
+            System.out.println("Data saved to file.");
+        } catch (IOException e) {
+            System.out.println("Error writing to file: " + e.getMessage());
+        }
     }
 }

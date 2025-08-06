@@ -26,6 +26,7 @@ public class Invoker {
             try {
                 cmd.execute();
                 // !!!!!!use instance of to update history only for add,delete and update.
+                if ()
                 history.push(cmd);
             } catch (CommandException e) {
                 System.out.println("Error: " + e.getMessage());

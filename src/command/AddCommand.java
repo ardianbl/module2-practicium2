@@ -41,6 +41,7 @@ public class AddCommand implements Command {
         newEmployeeObject = new Employee(firstName, lastName, email);
         receiver.add(newEmployeeObject);
         System.out.println("add");
+
     }
 
     @Override

@@ -57,17 +57,4 @@ public class FileHandler {
 
         return employeeList;
     }
-
-    public static void storeToFile(Receiver receiver) {
-        try {
-            List<String> lines = new ArrayList<>();
-            for (Employee e : receiver.getEmployeeList()) {
-                lines.add(e.toString());
-            }
-            Files.write(FILE_PATH, lines, StandardOpenOption.TRUNCATE_EXISTING);
-            System.out.println("Data saved to file.");
-        } catch (IOException e) {
-            System.out.println("Error writing to file: " + e.getMessage());
-        }
-    }
 }

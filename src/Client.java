@@ -1,9 +1,8 @@
 import command.*;
 import core.Command;
-import core.Receiver;
 import core.Invoker;
+import core.Receiver;
 import exceptions.CommandException;
-import util.FileHandler;
 
 import java.util.Stack;
 
@@ -22,45 +21,43 @@ public class Client {
         Stack<Command> history = new Stack<>();
         Receiver receiver = new Receiver();
 
-            Command [] allCommands = {
+        Command[] allCommands = {
 //                    new ListCommand(receiver),
-                    new UpdateCommand(receiver,"1"), //
-                    new UpdateCommand(receiver,"1 firstName lastName"),
-                    new UpdateCommand(receiver,"1 firstName lastName .ardian@email.com"), //
-                    new UpdateCommand(receiver,"1 firstName lastName -ardian@email.com"), //
-                    new UpdateCommand(receiver,"1 firstName lastName _ardian@email.com"),
-                    new UpdateCommand(receiver,"1 firstName lastName _a..rdian@email.com"), //
-                    new UpdateCommand(receiver,"1 firstName lastName _a--rdian@email.com"), //
-                    new UpdateCommand(receiver,"1 firstName lastName _a-r-dian@email.com"),
-                    new UpdateCommand(receiver,"1 firstName lastName _ardian@.email.com"), //
-                    new UpdateCommand(receiver,"1 firstName lastName _ardian@email..com"), //
-                    new UpdateCommand(receiver,"1 firstName lastName _ardian@-email.com"), //
-                    new UpdateCommand(receiver,"1 firstName lastName _ardian@email-.com"), //
-                    new UpdateCommand(receiver,"1 firstName lastName _ardian@_email.com"), //
-                    new UpdateCommand(receiver,"1 firstName lastName _ardian@_email.comm"), //
-                    new UndoCommand(history),
-                    new AddCommand(receiver,"firstName no email@gmail.com"),
-                    new AddCommand(receiver,"firstName no email_"),
+                new UpdateCommand(receiver, "1"), //
+                new UpdateCommand(receiver, "1 firstName lastName"),
+                new UpdateCommand(receiver, "1 firstName lastName .ardian@email.com"), //
+                new UpdateCommand(receiver, "1 firstName lastName -ardian@email.com"), //
+                new UpdateCommand(receiver, "1 firstName lastName _ardian@email.com"),
+                new UpdateCommand(receiver, "1 firstName lastName _a..rdian@email.com"), //
+                new UpdateCommand(receiver, "1 firstName lastName _a--rdian@email.com"), //
+                new UpdateCommand(receiver, "1 firstName lastName _a-r-dian@email.com"),
+                new UpdateCommand(receiver, "1 firstName lastName _ardian@.email.com"), //
+                new UpdateCommand(receiver, "1 firstName lastName _ardian@email..com"), //
+                new UpdateCommand(receiver, "1 firstName lastName _ardian@-email.com"), //
+                new UpdateCommand(receiver, "1 firstName lastName _ardian@email-.com"), //
+                new UpdateCommand(receiver, "1 firstName lastName _ardian@_email.com"), //
+                new UpdateCommand(receiver, "1 firstName lastName _ardian@_email.comm"), //
+
+                new UndoCommand(history),
+                new AddCommand(receiver, "firstName no email@gmail.com"),
+                new AddCommand(receiver, "firstName no email_"),
 //                    new UndoCommand(history),
-                    new ListCommand(receiver),
-                    new DeleteCommand(receiver,"1, 2"),
-                    new UndoCommand(history),
-                    new ListCommand(receiver),
+                new ListCommand(receiver),
+                new DeleteCommand(receiver, "1, 2"),
+                new UndoCommand(history),
+                new ListCommand(receiver),
 
 //                    new DeleteCommand(receiver,"firstName"),
 
-            };
-            Invoker control = new Invoker();
-            control.setCommandsForExecution(allCommands);
-            control.executeCommand(history);
-            FileHandler.storeToFile(receiver);
-
-
+        };
+        Invoker control = new Invoker();
+        control.setCommandsForExecution(allCommands);
+        control.executeCommand(history);
+        receiver.storeToFile();
 
 
         //This is from the ArrayList created from the receiver.
 //        System.out.println(receiver.getEmployeeList().toString());
-
 
 
     }
