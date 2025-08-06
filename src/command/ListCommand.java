@@ -1,4 +1,6 @@
-package Command;
+package command;
+
+import core.*;
 
 /**
  * Concrete Commands implements the various kinds of commands. A concrete command
@@ -7,7 +9,15 @@ package Command;
  * declared as fields in the concrete command.
  */
 
-public class AddCommand implements Command {
+public class ListCommand implements Command {
+    private Receiver receiver;
+
+    public ListCommand(Receiver receiver) {
+        this.receiver = receiver;
+    }
+
     @Override
-    public void execute() {}
+    public void execute() {
+        receiver.list();
+    }
 }
