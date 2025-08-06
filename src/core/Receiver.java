@@ -90,6 +90,7 @@ public class Receiver {
     }
     public void list() {
         int number = 1;
+         System.out.println("List");
         for (String s : employeeList) {
             System.out.printf("%02d. %s\n", number, s);
             number++;
