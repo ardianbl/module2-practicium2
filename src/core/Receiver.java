@@ -25,6 +25,7 @@ public class Receiver {
 
     private ArrayList<String> employeeList = new ArrayList<>();
     private boolean isExist = false;
+    Path filepath = Paths.get("./src/dataStore.txt");
 
     public ArrayList<String> getEmployeeList() {
         return employeeList;
@@ -48,7 +49,6 @@ public class Receiver {
 
     //Passed the data in the file into the array called data for the command to use.
     public Receiver() {
-        Path filepath = Paths.get("./src/dataStore.txt");
         isExist = Files.exists(filepath);
 
         if (isExist) {
@@ -107,6 +107,15 @@ public class Receiver {
 
     public void setEntry(int index, String currentEntry) {
         employeeList.add(index, currentEntry);
+    }
+
+     public void storeToFile() {
+        try {
+            Files.write(filepath, employeeList, StandardOpenOption.TRUNCATE_EXISTING);
+            System.out.println("Data saved to file.");
+        } catch (IOException e) {
+            System.out.println("Error writing to file: " + e.getMessage());
+        }
     }
 
 
