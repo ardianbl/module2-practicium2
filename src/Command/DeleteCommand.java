@@ -65,7 +65,10 @@ public class DeleteCommand implements Command {
         employeeToBeAdded = receiver.getEmployeeList().get(indexNumber);
 
         receiver.deleteEntry(indexNumber);
-        System.out.println("Deleted index " +  (indexNumber + 1));
+        System.out.println("Deleted: "
+                + (indexNumber + 1) + ". "
+                + employeeToBeAdded
+        );
     }
 
     /**

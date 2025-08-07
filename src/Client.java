@@ -148,6 +148,6 @@ public class Client {
         Invoker invoker = new Invoker();
         invoker.setCommandsForExecution(allCommands);
         invoker.executeCommand(history);
-        receiver.storeToFile();
+//        receiver.storeToFile();
     }
 }

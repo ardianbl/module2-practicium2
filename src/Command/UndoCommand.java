@@ -39,7 +39,7 @@ public class UndoCommand implements Command {
     @Override
     public void execute() {
         if (history.isEmpty()) {
-            throw new CommandException("There are no commands to undo.");
+            throw new CommandException("(Undo) There are no commands to undo.");
         }
         Command lastCommand = history.pop();
         lastCommand.undo();

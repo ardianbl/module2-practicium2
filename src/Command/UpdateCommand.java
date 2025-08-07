@@ -115,13 +115,10 @@ public class UpdateCommand implements Command {
         new_email = new_email != null ? new_email : old_email;
 
         receiver.updateEntry(indexNumber, new_first_name, new_last_name, new_email);
-        System.out.println("Updated Employee "
-                + (indexNumber + 1)
-                + ": "
-                + new_first_name
-                + " "
-                + new_last_name
-                + " "
+        System.out.println("Updated: "
+                + (indexNumber + 1) + ". "
+                + new_first_name + " "
+                + new_last_name + " "
                 + new_email
         );
     }
