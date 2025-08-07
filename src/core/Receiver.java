@@ -69,7 +69,9 @@ public class Receiver {
         int number = 1;
         System.out.println("List");
         for (String s : employeeList) {
-            System.out.printf("%02d. %s\n", number, s);
+//            System.out.printf("%02d. %s\n", number, s);
+            String value = String.format("%02d. ", number);
+            System.out.println(value+s);
             number++;
         }
     }
@@ -80,8 +82,13 @@ public class Receiver {
 
     public void storeToFile() {
         try {
+            if(!isExist) {
+                Files.createFile(filepath);
+            }
             Files.write(filepath, employeeList, StandardOpenOption.TRUNCATE_EXISTING);
             System.out.println("Data saved to file.");
+
+
         } catch (IOException e) {
             System.out.println("Error writing to file: " + e.getMessage());
         }
