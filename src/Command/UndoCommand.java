@@ -1,6 +1,5 @@
-package command;
+package Command;
 
-import Exceptions.CommandException;
 import core.*;
 
 import java.util.Stack;

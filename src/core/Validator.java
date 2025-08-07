@@ -1,56 +1,33 @@
 package core;
 
-import Exceptions.CommandException;
-
-import java.util.ArrayList;
+import java.util.regex.Pattern;
 
 public class Validator {
-//    private static Receiver receiver;
+    private static Receiver receiver;
 
-    public static String[] checkAddPayloadValidity(String payload) {
+    // Regex for ID-like string (letters, numbers, underscore only)
+    private static final Pattern ID_PATTERN = Pattern.compile("^[A-Za-z0-9_]+$");
 
-        if (payload == null || payload.trim().isEmpty()) {
-            throw new CommandException("No input is detected");
-        }
+    // Regex for email (custom rules from assignment)
+    private static final Pattern EMAIL_PATTERN = Pattern.compile(
+            "^(?!.*(\\.\\.|__|--))[a-zA-Z0-9]+" +
+                    "[\\w.-]+[a-zA-Z0-9]+" +
+                    "@[a-zA-Z0-9]+[\\w.-]+" +
+                    "[a-zA-Z0-9]+" +
+                    "\\.[a-z]{2,3}$",
+            Pattern.CASE_INSENSITIVE);
 
-        String[] payloadArray = payload.trim().split("\\s+");
-        if (payloadArray.length != 3) {
-            throw new CommandException("Add command requires exactly 3 inputs");
-        }
-        String firstName = payloadArray[0];
-        String lastName = payloadArray[1];
-        String email = payloadArray[2];
-
-        if (!isEmailValid(email)) {
-            throw new CommandException("Email format is invalid.");
-        }
-
-        return new String[]{firstName, lastName, email};
+    // Validate <data3>
+    public static boolean isValidData3(String input) {
+        return isValidEmail(input) || isValidId(input);
     }
 
-    public static String[] checkUpdatePayloadValidity(String payload) {
-        if (payload == null || payload.trim().isEmpty()) {
-            throw new CommandException("No input is detected");
-        }
+    public static boolean isValidEmail(String email) {
+        return EMAIL_PATTERN.matcher(email).matches();
+    }
 
-        String[] payloadArray = payload.trim().split("\\s+");
-        if (payloadArray.length != 4) {
-            throw new CommandException("Add command requires exactly 3 inputs");
-        }
-        String index = payloadArray[0];
-        String firstName = payloadArray[1];
-        String lastName = payloadArray[2];
-        String email = payloadArray[3];
-
-//        if (!isIndexValid(Integer.parseInt(index))) {
-//            throw new CommandException("Index is not in the list");
-//        }
-
-//        if (!isEmailValid(email)) {
-//            throw new CommandException("Email format is invalid.");
-//        }
-
-        return new String[]{index, firstName, lastName, email};
+    public static boolean isValidId(String id) {
+        return ID_PATTERN.matcher(id).matches();
     }
 
     public static boolean isEmailValid(String email) {
@@ -58,7 +35,7 @@ public class Validator {
 //      String regex = "(?i)^[a-z0-9_]+(?:[.-][a-z0-9_]+)*@" +  // local
 //                "[a-z0-9]+(?:[.-][a-z0-9]+)*\\.[a-z]{2,3}$";    // domain
 
-        String regex ="^(?!.*(\\.\\.|__|--))[a-zA-Z0-9]+" +
+        String regex = "^(?!.*(\\.\\.|__|--))[a-zA-Z0-9]+" +
                 "[\\w.-]+[a-zA-Z0-9]+" +
                 "@[a-zA-Z0-9]+[\\w.-]+" +
                 "[a-zA-Z0-9]+" +
@@ -73,19 +50,31 @@ public class Validator {
         return email.matches(regex);
     }
 
-    public static String setTitleCase (String wordToSet)
-    {
-        for (int i = 0; i < wordToSet.length(); i++) {
-            String firstLetter = wordToSet.substring(0, 1).toUpperCase();
-            String otherLetter = wordToSet.substring(1).toLowerCase();
-            wordToSet = firstLetter + otherLetter;
-        }
+    public static String capitalize(String wordToCapitalize) {
+        return wordToCapitalize.replaceFirst(
+                wordToCapitalize.substring(0, 1),
+                wordToCapitalize.substring(0, 1).toUpperCase()
+        );
 
-        return wordToSet;
-
+//        for (int i = 0; i < wordToCapitalize.length(); i++) {
+//            String firstLetter = wordToCapitalize.substring(0, 1).toUpperCase();
+//            String otherLetter = wordToCapitalize.substring(1).toLowerCase();
+//            wordToCapitalize = firstLetter + otherLetter;
+//        }
+//
+//        return wordToCapitalize;
     }
 
-//    public static boolean isIndexValid(int index) {
-//        return index > 0 && index <= receiver.getEmployeeCount();
-//    }
+    public static boolean isIndexValid(Receiver receiver, String indexString) {
+        try {
+            int indexNumber = Integer.parseInt(indexString) - 1;
+            if (indexNumber < 0 || indexNumber >= receiver.getEmployeeCount()) {
+                throw new Exceptions.CommandException("Index out of bounds.");
+            }
+        } catch (NumberFormatException e) {
+            throw new Exceptions.CommandException("Index number must be an integer.");
+        }
+
+        return true;
+    }
 }
