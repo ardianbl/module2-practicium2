@@ -45,8 +45,16 @@ public class UpdateCommand implements Command {
         new_last_name = data.length > 2 ? Validator.capitalize(data[2]) : null;
         new_email = data.length > 3 ? data[3] : null;
 
-        if (new_email != null && !Validator.isValidData3(new_email)) {
+//        if (new_email != null && !Validator.isValidData3(new_email)) {
+//            throw new CommandException("Data3 format is invalid.");
+//        }
+
+        if(!(new_email != null && new_email.contains("@") && Validator.isValidEmail(new_email))) {
             throw new CommandException("Data3 format is invalid.");
+        } else if (Validator.isValidId(new_email)) {
+            new_email = Validator.capitalize(new_email);
+        } else {
+            throw new CommandException("Add: Data3 format is invalid.");
         }
 
         oldEmployeeDetails = receiver.getEmployeeDetails(indexNumber);

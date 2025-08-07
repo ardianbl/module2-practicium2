@@ -26,12 +26,12 @@ public class Validator {
     private static final Pattern EMAIL_PATTERN = Pattern.compile(
             "^[a-zA-Z0-9_]+(?:[.-][a-zA-Z0-9_]+)*@[a-zA-Z0-9]+(?:[.-][a-zA-Z0-9]+)*\\.[a-z]{2,3}$");
 
-    /**
-     * Method to execute if data is an email or a valid input.
-     */
-    public static boolean isValidData3(String input) {
-        return isValidEmail(input) || isValidId(input);
-    }
+//    /**
+//     * Method to execute if data is an email or a valid input.
+//     */
+//    public static boolean isValidData3(String input) {
+//        return isValidEmail(input) || isValidId(input);
+//    }
 
     /**
      * Checks if the given email is valid based on the {@code EMAIL_PATTERN} regex.
@@ -77,7 +77,6 @@ public class Validator {
      * @param indexString
      * @return
      */
-
     public static boolean isIndexValid(Receiver receiver, String indexString) {
         try {
             int indexNumber = Integer.parseInt(indexString) - 1;
