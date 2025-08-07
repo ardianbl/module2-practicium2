@@ -17,7 +17,10 @@ public class Client {
         Stack<Command> history = new Stack<>();
         Receiver receiver = new Receiver();
 
+
         Command[] allCommands = {
+//                new DeleteCommand(receiver, " 0"),      // ❌ Index out of bounds
+
                 /* TEST FOR ADD COMMAND */
                 new AddCommand(receiver, "^na123me1 name2 email@email.com"),    // valid
                 new AddCommand(receiver, "324name345553 name4 email09_"),           // valid
@@ -92,13 +95,14 @@ public class Client {
 
                 /* TEST FOR DELETE COMMAND */
 // ✅ VALID TEST CASES
-                new DeleteCommand(receiver, "1"),        // ✅ Valid: typical index
+                new DeleteCommand(receiver, " 1 "),        // ✅ Valid: typical index
                 new DeleteCommand(receiver, "5"),       // ✅ Valid: larger index
 
 // ❌ INVALID TEST CASES
                 new DeleteCommand(receiver, "999"),      // ❌ Index out of bounds
                 new DeleteCommand(receiver, ""),         // ❌ Empty payload
-                new DeleteCommand(receiver, "abc"),      // ❌ Non-numeric input
+                new DeleteCommand(receiver, "1, 2"),     // ❌ Wrong payload
+                new DeleteCommand(receiver, "0"),      // ❌ Non-numeric input
                 new DeleteCommand(receiver, "1abc"),     // ❌ Alphanumeric string
                 new DeleteCommand(receiver, "-1"),       // ❌ Negative index
                 new DeleteCommand(receiver, "0"),        // ❌ Zero index (if 1-based indexing is assumed)
@@ -106,6 +110,7 @@ public class Client {
                 new DeleteCommand(receiver, "1 2"),      // ❌ Extra unexpected arguments
                 new DeleteCommand(receiver, "3.14"),     // ❌ Decimal number
                 new DeleteCommand(receiver, "#1"),       // ❌ Symbol-prefixed input
+                new ListCommand(receiver),
 
                 /* TEST FOR UNDO COMMAND */
                 new UndoCommand(receiver, history),
@@ -120,6 +125,7 @@ public class Client {
         Invoker invoker = new Invoker();
         invoker.setCommandsForExecution(allCommands);
         invoker.executeCommand(history);
+
         receiver.storeToFile();
     }
 }

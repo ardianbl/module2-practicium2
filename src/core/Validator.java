@@ -14,30 +14,51 @@ public class Validator {
     private static Receiver receiver;
 
     /**
-     * Pattern
+     * Regex for ID-like string (letters, numbers, underscore only)
+     *
      */
-
-    // Regex for ID-like string (letters, numbers, underscore only)
     private static final Pattern ID_PATTERN = Pattern.compile("^[a-zA-Z0-9_]{1,}+$");
 
-    // Regex for email (custom rules from assignment)
+    /**
+     * Regex for email (custom rules from assignment)
+     *
+     */
     private static final Pattern EMAIL_PATTERN = Pattern.compile(
             "^[a-zA-Z0-9_]+(?:[.-][a-zA-Z0-9_]+)*@[a-zA-Z0-9]+(?:[.-][a-zA-Z0-9]+)*\\.[a-z]{2,3}$");
 
-    // Validate <data3>
+    /**
+     * Method to execute if data is an email or a valid input.
+     */
     public static boolean isValidData3(String input) {
         return isValidEmail(input) || isValidId(input);
     }
 
+    /**
+     * Checks if the given email is valid based on the {@code EMAIL_PATTERN} regex.
+     *
+     * @param email the third data field to validate
+     * @return true if the email is valid and contains an underscore; false otherwise
+     */
     public static boolean isValidEmail(String email) {
         return EMAIL_PATTERN.matcher(email).matches();
     }
 
+    /**
+     * Checks if the given ID is valid based on the {@code ID_PATTERN} regex.
+     *
+     * @param id the third data field to validate
+     * @return true if the ID is valid and contains an underscore; false otherwise
+     */
     public static boolean isValidId(String id) {
         return ID_PATTERN.matcher(id).matches();
     }
 
-
+    /**
+     * Converts the given word to title case (capitalizes the first letter).
+     *
+     * @param wordToSet the word to convert
+     * @return the word in title case
+     */
     public static String capitalize (String wordToSet)
     {
         for (int i = 0; i < wordToSet.length(); i++) {
@@ -49,6 +70,13 @@ public class Validator {
         return wordToSet;
 
     }
+
+    /**
+     *
+     * @param receiver
+     * @param indexString
+     * @return
+     */
 
     public static boolean isIndexValid(Receiver receiver, String indexString) {
         try {

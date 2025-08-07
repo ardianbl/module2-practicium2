@@ -38,11 +38,16 @@ public class AddCommand implements Command {
 
         first_name = Validator.capitalize(result[0]);
         last_name = Validator.capitalize(result[1]);
-        emailAddress = result[2];
+//        emailAddress = result[2].contains("@") ? result[2]: Validator.capitalize(result[2]);
 
-        if (!Validator.isValidData3(emailAddress)) {
-            throw new CommandException("Data3 format is invalid.");
+        if(result[2].contains("@") && Validator.isValidEmail(result[2])) {
+            emailAddress = result[2];
+        } else if (Validator.isValidId(result[2])) {
+            emailAddress = Validator.capitalize(result[2]);
+        } else {
+            throw new CommandException("Add: Data3 format is invalid.");
         }
+
 
         receiver.addEntry(first_name, last_name, emailAddress);
         indexToDelete = receiver.getEmployeeCount() - 1;

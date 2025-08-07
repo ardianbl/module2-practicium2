@@ -30,11 +30,11 @@ public class DeleteCommand implements Command {
         }
 
         if (Validator.isIndexValid(receiver, data[0])) {
-            indexNumber = Integer.parseInt(data[0]) - 1;
+            indexNumber = Integer.parseInt(data[0]);
         }
 
-        employeeToBeAdded = receiver.getEmployeeList().get(indexNumber);
-        receiver.deleteEntry(indexNumber);
+        employeeToBeAdded = receiver.getEmployeeList().get(indexNumber-1);
+        receiver.deleteEntry(indexNumber-1);
         System.out.println("Deleted index " +  indexNumber);
     }
 
