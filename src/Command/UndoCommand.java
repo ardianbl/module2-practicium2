@@ -1,5 +1,6 @@
 package Command;
 
+import Exceptions.CommandException;
 import core.*;
 
 import java.util.Stack;
@@ -15,13 +16,12 @@ public class UndoCommand implements Command  {
 
     @Override
     public void execute() {
-        if(!history.isEmpty())
-        {
-            Command lastCommand = history.pop();
-            lastCommand.undo();
-            System.out.println("Undo");
+        if(history.isEmpty()) {
+            throw new CommandException("There are no commands to undo.");
         }
-
+        Command lastCommand = history.pop();
+        lastCommand.undo();
+        System.out.println("Undo");
     }
 
 

@@ -1,0 +1,6 @@
+John Doe john.doe-email_2022@company-site.com
+Name3 Name4 email09_
+Name1 Name2 EMAIL@EMAIL.com
+Name1 Name2 EMAIL@EMAIL.COM
+Name1 Name2 EMAIL@E.MAIL.com
+Name1 Name2 EMAIL@E-MAIL.com

@@ -62,11 +62,7 @@ public class Receiver {
     }
 
     public void deleteEntry(int index) {
-        try {
-            employeeList.remove(index); //Can just directly, it will just throw an error if it does not exist.
-        } catch (IndexOutOfBoundsException e) {
-            throw new CommandException("Invalid index number, entry does not exist.");
-        }
+        employeeList.remove(index);
     }
 
     public void list() {

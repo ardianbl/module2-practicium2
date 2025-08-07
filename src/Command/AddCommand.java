@@ -15,7 +15,7 @@ public class AddCommand implements Command {
     private String payload;
     private String first_name;
     private String last_name;
-    private String email;
+    private String emailAddress;
     private int indexToDelete;
 
     /**
@@ -38,15 +38,15 @@ public class AddCommand implements Command {
 
         first_name = Validator.capitalize(result[0]);
         last_name = Validator.capitalize(result[1]);
-        email = result[2];
+        emailAddress = result[2];
 
-        if (!Validator.isValidData3(email)) {
+        if (!Validator.isValidData3(emailAddress)) {
             throw new CommandException("Data3 format is invalid.");
         }
 
-        receiver.addEntry(first_name, last_name, email);
+        receiver.addEntry(first_name, last_name, emailAddress);
         indexToDelete = receiver.getEmployeeCount() - 1;
-        System.out.println("add");
+        System.out.println("Added " + first_name + " " + last_name + " to " + emailAddress + ".");
     }
 
     @Override

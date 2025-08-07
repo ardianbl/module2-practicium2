@@ -41,17 +41,6 @@ public class UpdateCommand implements Command {
             indexNumber = Integer.parseInt(data[0]) - 1;
         }
 
-//        try {
-//            indexNumber = Integer.parseInt(data[0]) - 1;
-//        } catch (NumberFormatException e) {
-//            throw new CommandException("Index number must be an integer.");
-//        }
-//
-//
-//        if (indexNumber < 0 || indexNumber > receiver.getEmployeeCount()) {
-//            throw new CommandException("Index out of bounds.");
-//        }
-
         new_first_name = Validator.capitalize(data[1]);
         new_last_name = data.length > 2 ? Validator.capitalize(data[2]) : null;
         new_email = data.length > 3 ? data[3] : null;
@@ -70,7 +59,7 @@ public class UpdateCommand implements Command {
         new_email = new_email != null ? new_email : old_email;
 
         receiver.updateEntry(indexNumber, new_first_name, new_last_name, new_email);
-        System.out.println("update");
+        System.out.println("Updated " + new_first_name + " " + new_last_name + " " + new_email);
     }
 
     @Override

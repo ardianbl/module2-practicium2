@@ -72,7 +72,7 @@ public class Client {
                 new UpdateCommand(receiver, "1 John Doe user_@domain.com_"),            // Invalid underscore at end of domain
                 new ListCommand(receiver),
 
-                /* TEST FOR ADD COMMAND */
+                /* TEST FOR DELETE COMMAND */
 // ✅ VALID TEST CASES
                 new DeleteCommand(receiver, "1"),        // ✅ Valid: typical index
                 new DeleteCommand(receiver, "5"),       // ✅ Valid: larger index
@@ -89,35 +89,19 @@ public class Client {
                 new DeleteCommand(receiver, "3.14"),     // ❌ Decimal number
                 new DeleteCommand(receiver, "#1"),       // ❌ Symbol-prefixed input
 
+                /* TEST FOR UNDO COMMAND */
+                new UndoCommand(receiver, history),
+                new UndoCommand(receiver, history),
                 new UndoCommand(receiver, history),
                 new UndoCommand(receiver, history),
                 new UndoCommand(receiver, history),
                 new UndoCommand(receiver, history),
                 new ListCommand(receiver),
-//
-//                new UpdateCommand(receiver, "1 name"),
-//                new ListCommand(receiver),
-//
-//                new UndoCommand(receiver, history),
-//                new ListCommand(receiver),
-
-//                new AddCommand(receiver, "firstName no email@gmail.com"),
-//                new AddCommand(receiver, "firstName no email_"),
-//                    new UndoCommand(history),
-//                new ListCommand(receiver),
-//                new DeleteCommand(receiver, "1, 2"),
-//                new UndoCommand(receiver, history),
-//                new ListCommand(receiver),
         };
 
         Invoker invoker = new Invoker();
         invoker.setCommandsForExecution(allCommands);
         invoker.executeCommand(history);
-//        receiver.storeToFile();
-
-        //This is from the ArrayList created from the receiver.
-        System.out.println(receiver.getEmployeeList().toString());
-
+        receiver.storeToFile();
     }
-
 }

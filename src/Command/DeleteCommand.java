@@ -33,20 +33,9 @@ public class DeleteCommand implements Command {
             indexNumber = Integer.parseInt(data[0]) - 1;
         }
 
-//        try{
-//            indexNumber = Integer.parseInt(data[0]) - 1;
-//        }
-//        catch(NumberFormatException e) {
-//            throw new CommandException("Index number must be an integer.");
-//        }
-//
-//        if (indexNumber < 0 || indexNumber > receiver.getEmployeeCount()) {
-//            throw new CommandException("Index out of bounds.");
-//        }
-
         employeeToBeAdded = receiver.getEmployeeList().get(indexNumber);
         receiver.deleteEntry(indexNumber);
-        System.out.println("Delete");
+        System.out.println("Deleted index " +  indexNumber);
     }
 
     @Override
