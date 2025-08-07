@@ -4,24 +4,21 @@ import java.util.regex.Pattern;
 
 /**
  * Performs all necessary validation checks related to the {@code Receiver} class's operations.
- *
  */
 public class Validator {
 
     /**
-     * Reciever instance f
+     * Receiver instance
      */
     private static Receiver receiver;
 
     /**
      * Regex for ID-like string (letters, numbers, underscore only)
-     *
      */
     private static final Pattern ID_PATTERN = Pattern.compile("^[a-zA-Z0-9_]{1,}+$");
 
     /**
      * Regex for email (custom rules from assignment)
-     *
      */
     private static final Pattern EMAIL_PATTERN = Pattern.compile(
             "^[a-zA-Z0-9_]+(?:[.-][a-zA-Z0-9_]+)*@[a-zA-Z0-9]+(?:[.-][a-zA-Z0-9]+)*\\.[a-z]{2,3}$");
@@ -59,8 +56,7 @@ public class Validator {
      * @param wordToSet the word to convert
      * @return the word in title case
      */
-    public static String capitalize (String wordToSet)
-    {
+    public static String capitalize(String wordToSet) {
         for (int i = 0; i < wordToSet.length(); i++) {
             String firstLetter = wordToSet.substring(0, 1).toUpperCase();
             String otherLetter = wordToSet.substring(1).toLowerCase();
@@ -68,25 +64,5 @@ public class Validator {
         }
 
         return wordToSet;
-
-    }
-
-    /**
-     *
-     * @param receiver
-     * @param indexString
-     * @return
-     */
-    public static boolean isIndexValid(Receiver receiver, String indexString) {
-        try {
-            int indexNumber = Integer.parseInt(indexString) - 1;
-            if (indexNumber < 0 || indexNumber >= receiver.getEmployeeCount()) {
-                throw new Exceptions.CommandException("Index out of bounds.");
-            }
-        } catch (NumberFormatException e) {
-            throw new Exceptions.CommandException("Index number must be an integer.");
-        }
-
-        return true;
     }
 }

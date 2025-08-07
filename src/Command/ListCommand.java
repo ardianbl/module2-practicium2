@@ -1,21 +1,31 @@
 package Command;
 
-import core.*;
+import core.Receiver;
 
 /**
- * Concrete Commands implements the various kinds of commands. A concrete Command
- * isn’t supposed to perform the work on its own, but rather to pass the call to one of the
- * business logic objects. Parameters required to execute a method on a receiving object can be
- * declared as fields in the concrete Command.
+ * Concrete Command for printing the Employees in the ArrayList <p>
+ * Takes in only a Receiver object
  */
 
 public class ListCommand implements Command {
+    /**
+     * Receiver instance
+     */
     private Receiver receiver;
 
+    /**
+     * ListCommand constructor
+     *
+     * @param receiver Receiver instance
+     */
     public ListCommand(Receiver receiver) {
         this.receiver = receiver;
     }
 
+    /**
+     * Overridden execute method <p>
+     * To make a call to the Receiver class
+     */
     @Override
     public void execute() {
         receiver.list();
