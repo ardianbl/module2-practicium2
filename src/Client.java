@@ -1,6 +1,6 @@
 import Command.*;
 import Invoker.Invoker;
-import core.*;
+import core.Receiver;
 
 import java.util.Stack;
 
@@ -93,6 +93,42 @@ public class Client {
                 new UpdateCommand(receiver, "1 name lastname user@abc.123"),             // digits not allowed in suffix
                 new UpdateCommand(receiver, "1 name lastname user@abc.c_m"),             // underscore not allowed in suffix
                 new UpdateCommand(receiver, "1 name lastname user@abc.def-"),            // ends with dash before suffix
+                new ListCommand(receiver),
+
+                // ✅ VALID CASES
+                new UpdateCommand(receiver, "1 alice"),  // Expect data1 converted to "Alice"
+                new UpdateCommand(receiver, "2 john doe john.doe@example.com"),
+                new UpdateCommand(receiver, "3 alice smith alice.smith@domain.com"),
+                new UpdateCommand(receiver, "4 foo bar foo_bar123@abc-site.com"),
+                new UpdateCommand(receiver, "5 john doe _name@domain.com"),
+                new UpdateCommand(receiver, "6 jane doe name__part@domain.com"),
+                new UpdateCommand(receiver, "7 marie curie marie-curie@science-lab.net"),
+                new UpdateCommand(receiver, "8 max payne m.payne@game.io"),
+                new UpdateCommand(receiver, "9 luke skywalker luke@x1y2z3.co"),
+                new ListCommand(receiver),
+//                new UpdateCommand(receiver, "1 jean luc jean.luc@domain.com"),
+//                new UpdateCommand(receiver, "2 aLiCe McDoNaLd alice@domain.com"),
+//                new ListCommand(receiver),
+
+                // ❌ INVALID CASES
+                new UpdateCommand(receiver, "john doe john.doe@example.com"),             // Missing index
+                new UpdateCommand(receiver, "4"),                                            // Missing data entirely
+                new UpdateCommand(receiver, "5 john doe john..doe@example.com"),             // Consecutive dots in local part
+                new UpdateCommand(receiver, "6 john doe john.doe-@example.com"),             // Dash at end of local part
+                new UpdateCommand(receiver, "7 john doe .john.doe@example.com"),             // Dot at start of local part
+                new UpdateCommand(receiver, "8 john doe john.doe@company--site.com"),        // Consecutive dashes in domain
+                new UpdateCommand(receiver, "9 john doe john.doe@company-site.CoM"),         // Uppercase in domain suffix
+                new UpdateCommand(receiver, "1 john doe john.doe@company-site.x"),           // Domain suffix too short
+                new UpdateCommand(receiver, "2 john doe john.doe@company-site.abcd"),        // Domain suffix too long
+                new UpdateCommand(receiver, "3 john doe john#doe@example.com"),              // Invalid character in local part
+                new UpdateCommand(receiver, "4 john doe john.doe@"),                         // Missing domain after @
+                new UpdateCommand(receiver, "5 john doe user_@domain.com_"),                 // Invalid underscore at end of domain
+                new UpdateCommand(receiver, "6 john doe john@-abc.com"),                     // Domain starts with dash
+                new UpdateCommand(receiver, "7 john doe john@.abc.com"),                     // Domain starts with dot
+                new UpdateCommand(receiver, "8 john doe john@abc..com"),                     // Consecutive dots in domain
+                new UpdateCommand(receiver, "9 john doe john@abc.12"),                       // Digits in domain suffix
+                new UpdateCommand(receiver, "1 john doe john@abc.c_m"),                      // Underscore in domain suffix
+                new UpdateCommand(receiver, "2 john doe john@abc.def-"),                     // Ends with dash before suffix
                 new ListCommand(receiver),
                 /* END OF TEST */
 

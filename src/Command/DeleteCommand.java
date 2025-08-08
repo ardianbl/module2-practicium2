@@ -44,11 +44,6 @@ public class DeleteCommand implements Command {
     public void execute() {
         String[] data = payload.trim().split("\\s+");
 
-        // check if payload contain exactly 1 data
-        if (data.length != 1) {
-            throw new CommandException("(Delete) Incorrect input length.");
-        }
-
         // check if index is an integer and between 0 and count-1
         try {
             indexNumber = Integer.parseInt(data[0]) - 1;
@@ -76,8 +71,7 @@ public class DeleteCommand implements Command {
      * Undo deletion, i.e. add back the entry
      */
     @Override
-    public void undo()
-    {
+    public void undo() {
         receiver.setEntry(indexNumber, employeeToBeAdded);
     }
 
