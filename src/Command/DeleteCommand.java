@@ -44,6 +44,11 @@ public class DeleteCommand implements Command {
     public void execute() {
 //        String[] data = payload.trim().split("\\s+");
 
+        // check for empty list
+        if (receiver.getEmployeeCount() == 0) {
+            throw new CommandException("(Delete) No entry found.");
+        }
+
         // check if index is an integer and between 0 and count-1
         try {
             indexNumber = Integer.parseInt(payload) - 1;

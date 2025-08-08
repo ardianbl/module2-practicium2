@@ -72,12 +72,12 @@ public class AddCommand implements Command {
         // send add entry to Receiver
         receiver.addEntry(first_name, last_name, emailAddress);
 
+        // print out message for successful operation
+        System.out.println("Added: " + first_name + " " + last_name + " " + emailAddress + ".");
+
         // set index for undo command
         // count-1 as it is 0-based index
         indexToDelete = receiver.getEmployeeCount() - 1;
-
-        // print out message for successful operation
-        System.out.println("Added: " + first_name + " " + last_name + " " + emailAddress + ".");
     }
 
     /**

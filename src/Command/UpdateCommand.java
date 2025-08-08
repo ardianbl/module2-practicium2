@@ -75,6 +75,11 @@ public class UpdateCommand implements Command {
             throw new CommandException("(Update) Incorrect input length.");
         }
 
+        // check for empty list
+        if (receiver.getEmployeeCount() == 0) {
+            throw new CommandException("(Update) No entry found.");
+        }
+
         // check if index is an integer and between 0 and count-1
         try {
             indexNumber = Integer.parseInt(data[0]) - 1;
@@ -104,6 +109,7 @@ public class UpdateCommand implements Command {
         }
 
         // store old employee details for undo operation
+
         oldEmployeeDetails = receiver.getEmployeeDetails(indexNumber);
         String[] oldEmployeeDetailsParts = oldEmployeeDetails.split(" ");
         old_first_name = oldEmployeeDetailsParts[0];
