@@ -96,16 +96,16 @@ public class Client {
                 new ListCommand(receiver),
 
                 // ✅ VALID CASES
-                new UpdateCommand(receiver, "1 alice"),  // Expect data1 converted to "Alice"
-                new UpdateCommand(receiver, "2 john doe john.doe@example.com"),
-                new UpdateCommand(receiver, "3 alice smith alice.smith@domain.com"),
-                new UpdateCommand(receiver, "4 foo bar foo_bar123@abc-site.com"),
-                new UpdateCommand(receiver, "5 john doe _name@domain.com"),
-                new UpdateCommand(receiver, "6 jane doe name__part@domain.com"),
-                new UpdateCommand(receiver, "7 marie curie marie-curie@science-lab.net"),
-                new UpdateCommand(receiver, "8 max payne m.payne@game.io"),
-                new UpdateCommand(receiver, "9 luke skywalker luke@x1y2z3.co"),
-                new ListCommand(receiver),
+//                new UpdateCommand(receiver, "1 alice"),  // Expect data1 converted to "Alice"
+//                new UpdateCommand(receiver, "2 john doe john.doe@example.com"),
+//                new UpdateCommand(receiver, "3 alice smith alice.smith@domain.com"),
+//                new UpdateCommand(receiver, "4 foo bar foo_bar123@abc-site.com"),
+//                new UpdateCommand(receiver, "5 john doe _name@domain.com"),
+//                new UpdateCommand(receiver, "6 jane doe name__part@domain.com"),
+//                new UpdateCommand(receiver, "7 marie curie marie-curie@science-lab.net"),
+//                new UpdateCommand(receiver, "8 max payne m.payne@game.io"),
+//                new UpdateCommand(receiver, "9 luke skywalker luke@x1y2z3.co"),
+//                new ListCommand(receiver),
 //                new UpdateCommand(receiver, "1 jean luc jean.luc@domain.com"),
 //                new UpdateCommand(receiver, "2 aLiCe McDoNaLd alice@domain.com"),
 //                new ListCommand(receiver),
@@ -184,6 +184,6 @@ public class Client {
         Invoker invoker = new Invoker();
         invoker.setCommandsForExecution(allCommands);
         invoker.executeCommand(history);
-//        receiver.storeToFile();
+        receiver.storeToFile();
     }
 }

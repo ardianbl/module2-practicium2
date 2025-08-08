@@ -42,11 +42,11 @@ public class DeleteCommand implements Command {
      */
     @Override
     public void execute() {
-        String[] data = payload.trim().split("\\s+");
+//        String[] data = payload.trim().split("\\s+");
 
         // check if index is an integer and between 0 and count-1
         try {
-            indexNumber = Integer.parseInt(data[0]) - 1;
+            indexNumber = Integer.parseInt(payload) - 1;
             if (indexNumber < 0 || indexNumber > receiver.getEmployeeCount()) {
                 throw new CommandException("(Delete) Index out of bounds.");
             }
